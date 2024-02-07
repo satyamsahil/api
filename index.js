@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken'); // Import JWT library
 
 const app = express();
+const PORT = 3000
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://satyamsahil:satyamsahilmongodb@satyammongo0.ii9zwcn.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -45,6 +46,10 @@ const authenticateUser = (req, res, next) => {
         }
     });
 };
+
+app.get('/', (req, res) => {
+    res.send('Hey this is my API running 🥳')
+})
 
 // Register a user
 app.post('/register', async (req, res) => {
@@ -123,7 +128,8 @@ app.put('/user/:username', async (req, res) => {
   }
 });
 
+app.listen(PORT, () => {
+    console.log(`API listening on PORT ${PORT} `)
+})
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
+module.exports = app
